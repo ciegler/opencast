@@ -84,6 +84,7 @@ import org.opencastproject.index.service.api.IndexService.Source;
 import org.opencastproject.index.service.exception.IndexServiceException;
 import org.opencastproject.index.service.exception.UnsupportedAssetException;
 import org.opencastproject.index.service.impl.util.EventUtils;
+import org.opencastproject.index.service.resources.list.provider.EventsListProvider;
 import org.opencastproject.index.service.resources.list.provider.EventsListProvider.Comments;
 import org.opencastproject.index.service.resources.list.query.EventListQuery;
 import org.opencastproject.index.service.resources.list.query.SeriesListQuery;
@@ -2590,6 +2591,16 @@ public abstract class AbstractEventEndpoint {
         } catch (IllegalArgumentException e) {
           return RestUtil.R.badRequest(e.getMessage());
         }
+      }
+      if (EventListQuery.FILTER_PUBLISHED_NAME.equals(name)) {
+        switch (EventsListProvider.Published.valueOf(filters.get(name))) {
+          case YES:
+            break;
+          case NO:
+            break;
+        }
+        // wahrscheinlich hier auch so ein values of ding wie bei comments???
+        query.withPublications(filters.get(name));
       }
     }
 

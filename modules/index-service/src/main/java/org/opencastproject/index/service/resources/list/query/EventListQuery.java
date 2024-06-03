@@ -87,6 +87,9 @@ public class EventListQuery extends ResourceListQueryImpl {
 
   public static final String FILTER_TEXT_NAME = "textFilter";
 
+  public static final String FILTER_PUBLISHED_NAME = "published";
+  private static final String FILTER_PUBLISHED_LABEL = "FILTERS.EVENTS.PUBLISHED.LABEL";
+
   public EventListQuery() {
     super();
     this.availableFilters.add(createSeriesFilter(Option.none()));
@@ -95,6 +98,7 @@ public class EventListQuery extends ResourceListQueryImpl {
     this.availableFilters.add(createStartDateFilter(Option.none()));
     this.availableFilters.add(createStatusFilter(Option.none()));
     this.availableFilters.add(createCommentsFilter(Option.none()));
+    this.availableFilters.add(createPublishedFilter(Option.none()));
   }
 
   /**
@@ -307,6 +311,25 @@ public class EventListQuery extends ResourceListQueryImpl {
   }
 
   /**
+   * Add a {@link ResourceListFilter} filter to the query with the given publishers
+   *
+   * @param publication
+   *          the publications to filter for
+   */
+  public void withPublications(String publication) {
+    this.addFilter(createPublishedFilter(Option.option(publication)));
+  }
+
+  /**
+   * Returns an {@link Option} containing the publication used to filter if set
+   *
+   * @return an {@link Option} containing the publication or none.
+   */
+  public Option<String> getPublished() {
+    return this.getFilterValue(FILTER_PUBLISHED_NAME);
+  }
+
+  /**
    * Create a new {@link ResourceListFilter} based on the Series id
    *
    * @param seriesId
@@ -436,5 +459,18 @@ public class EventListQuery extends ResourceListQueryImpl {
   public static ResourceListFilter<String> createPublisherFilter(Option<String> publisher) {
     return FiltersUtils.generateFilter(publisher, FILTER_PUBLISHER_NAME, FILTER_PUBLISHER_LABEL, SourceType.SELECT,
             Option.some(EventsListProvider.PUBLISHER));
+  }
+
+
+  /**
+  * Create a new {@link ResourceListFilter} based on publications
+  *
+  * @param publication
+  *          the publication to filter on wrapped in an {@link Option} or {@link Option#none()}
+  * @return a new {@link ResourceListFilter} for progress based query
+  */
+  public static ResourceListFilter<String> createPublishedFilter(Option<String> publication) {
+    return FiltersUtils.generateFilter(publication, FILTER_PUBLISHED_NAME, FILTER_PUBLISHED_LABEL, SourceType.SELECT,
+        Option.some(EventsListProvider.PUBLISHED));
   }
 }

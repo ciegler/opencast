@@ -59,13 +59,18 @@ public class EventsListProvider implements ResourceListProvider {
   public static final String STATUS = PROVIDER_PREFIX + ".STATUS";
   public static final String COMMENTS = PROVIDER_PREFIX + ".COMMENTS";
   public static final String PUBLISHER = PROVIDER_PREFIX + ".PUBLISHER";
+  public static final String PUBLISHED = PROVIDER_PREFIX + ".PUBLISHED";
+
+  public enum Published {
+    YES, NO;
+  };
 
   public enum Comments {
     NONE, OPEN, RESOLVED;
   }
 
   private static final String[] NAMES = { PROVIDER_PREFIX, CONTRIBUTORS, PRESENTERS_BIBLIOGRAPHIC, PRESENTERS_TECHNICAL,
-          SUBJECT, LOCATION, PROGRESS, STATUS, COMMENTS, PUBLISHER };
+          SUBJECT, LOCATION, PROGRESS, STATUS, COMMENTS, PUBLISHER, PUBLISHED };
 
   private static final Logger logger = LoggerFactory.getLogger(EventsListProvider.class);
 
@@ -125,6 +130,9 @@ public class EventsListProvider implements ResourceListProvider {
     } else if (PUBLISHER.equals(listName)) {
       for (String publisher : index.getTermsForField(EventIndexSchema.PUBLISHER, Event.DOCUMENT_TYPE))
         list.put(publisher, publisher);
+    } else if (PUBLISHED.equals(listName)) {
+      for (Published published : Published.values())
+        list.put(published.toString(), "FILTER.EVENT.PUBLISHED." + published.toString());
     }
 
     return list;
@@ -132,7 +140,7 @@ public class EventsListProvider implements ResourceListProvider {
 
   @Override
   public boolean isTranslatable(String listName) {
-    return STATUS.equals(listName) || COMMENTS.equals(listName);
+    return STATUS.equals(listName) || COMMENTS.equals(listName) || PUBLISHED.equals(listName);
   }
 
   @Override
