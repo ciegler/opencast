@@ -2595,12 +2595,13 @@ public abstract class AbstractEventEndpoint {
       if (EventListQuery.FILTER_PUBLISHED_NAME.equals(name)) {
         switch (EventsListProvider.Published.valueOf(filters.get(name))) {
           case YES:
+            query.withisPublished(true);
             break;
           case NO:
+            query.withisPublished(false);
             break;
         }
-        // wahrscheinlich hier auch so ein values of ding wie bei comments???
-        query.withPublications(filters.get(name));
+
       }
     }
 

@@ -83,6 +83,7 @@ public class EventSearchQuery extends AbstractSearchQuery {
   private Date technicalStartTime = null;
   private Date technicalEndTime = null;
   private List<String> technicalPresenters = new ArrayList<String>();
+  private Boolean isPublished = null;
 
   @SuppressWarnings("unused")
   private EventSearchQuery() {
@@ -852,6 +853,20 @@ public class EventSearchQuery extends AbstractSearchQuery {
   public String[] getPublications() {
     return publications.toArray(new String[publications.size()]);
   }
+
+
+  /**
+   * Selects recording events with the given isPublished status.
+   *
+   * @param isPublished
+   *          the is published status
+   * @return the enhanced search query
+   */
+  public EventSearchQuery withisPublished(Boolean isPublished) {
+    this.isPublished = isPublished;
+    return this;
+  }
+
 
   /**
    * Selects events with the given archive version.
