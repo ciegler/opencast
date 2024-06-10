@@ -84,7 +84,7 @@ import org.opencastproject.index.service.api.IndexService.Source;
 import org.opencastproject.index.service.exception.IndexServiceException;
 import org.opencastproject.index.service.exception.UnsupportedAssetException;
 import org.opencastproject.index.service.impl.util.EventUtils;
-import org.opencastproject.index.service.resources.list.provider.EventsListProvider;
+import org.opencastproject.index.service.resources.list.provider.EventsListProvider.Published;
 import org.opencastproject.index.service.resources.list.provider.EventsListProvider.Comments;
 import org.opencastproject.index.service.resources.list.query.EventListQuery;
 import org.opencastproject.index.service.resources.list.query.SeriesListQuery;
@@ -2593,12 +2593,14 @@ public abstract class AbstractEventEndpoint {
         }
       }
       if (EventListQuery.FILTER_PUBLISHED_NAME.equals(name)) {
-        switch (EventsListProvider.Published.valueOf(filters.get(name))) {
+        switch (Published.valueOf(filters.get(name))) {
           case YES:
-            query.withisPublished(true);
+            //query.withisPublished(true);
+            query.withPublications("publication");
             break;
           case NO:
-            query.withisPublished(false);
+            //query.withisPublished(false);
+            query.withPublications("internal");
             break;
         }
 

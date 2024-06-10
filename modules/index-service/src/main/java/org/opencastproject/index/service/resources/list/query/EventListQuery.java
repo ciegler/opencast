@@ -311,7 +311,7 @@ public class EventListQuery extends ResourceListQueryImpl {
   }
 
   /**
-   * Add a {@link ResourceListFilter} filter to the query with the given publishers
+   * Add a {@link ResourceListFilter} filter to the query with the given publication
    *
    * @param publication
    *          the publications to filter for
@@ -325,7 +325,7 @@ public class EventListQuery extends ResourceListQueryImpl {
    *
    * @return an {@link Option} containing the publication or none.
    */
-  public Option<String> getPublished() {
+  public Option<String> getPublications() {
     return this.getFilterValue(FILTER_PUBLISHED_NAME);
   }
 
