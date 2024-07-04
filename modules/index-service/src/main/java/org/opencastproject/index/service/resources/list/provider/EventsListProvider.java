@@ -61,7 +61,7 @@ public class EventsListProvider implements ResourceListProvider {
   public static final String PUBLISHER = PROVIDER_PREFIX + ".PUBLISHER";
   public static final String PUBLISHED = PROVIDER_PREFIX + ".PUBLISHED";
 
-  public enum Published {
+  public enum IsPublished {
     YES, NO;
   };
 
@@ -131,7 +131,7 @@ public class EventsListProvider implements ResourceListProvider {
       for (String publisher : index.getTermsForField(EventIndexSchema.PUBLISHER, Event.DOCUMENT_TYPE))
         list.put(publisher, publisher);
     } else if (PUBLISHED.equals(listName)) {
-      for (Published published : Published.values())
+      for (IsPublished published : IsPublished.values())
         list.put(published.toString(), "FILTER.EVENT.PUBLISHED." + published.toString());
     }
 

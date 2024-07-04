@@ -225,6 +225,13 @@ public class EventQueryBuilder extends AbstractElasticsearchQueryBuilder<EventSe
       }
     }
 
+    // IsPublished
+    if (query.getIsPublished() != null) {
+      for (String channel : query.getPublications()) {
+        and(PublicationIndexSchema.CHANNEL, channel);
+      }
+    }
+
     // Archive version
     if (query.getArchiveVersion() != null) {
       and(EventIndexSchema.ARCHIVE_VERSION, query.getArchiveVersion());

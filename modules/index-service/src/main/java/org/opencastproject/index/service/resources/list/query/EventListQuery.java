@@ -310,24 +310,6 @@ public class EventListQuery extends ResourceListQueryImpl {
     return this.getFilterValue(FILTER_PUBLISHER_NAME);
   }
 
-  /**
-   * Add a {@link ResourceListFilter} filter to the query with the given publication
-   *
-   * @param publication
-   *          the publications to filter for
-   */
-  public void withPublications(String publication) {
-    this.addFilter(createPublishedFilter(Option.option(publication)));
-  }
-
-  /**
-   * Returns an {@link Option} containing the publication used to filter if set
-   *
-   * @return an {@link Option} containing the publication or none.
-   */
-  public Option<String> getPublications() {
-    return this.getFilterValue(FILTER_PUBLISHED_NAME);
-  }
 
   /**
    * Create a new {@link ResourceListFilter} based on the Series id
