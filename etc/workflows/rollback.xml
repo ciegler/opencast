@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition xmlns="http://workflow.opencastproject.org">
+
+  <id>rollback</id>
+  <title>Rollback to previous snapshot version</title>
+  <tags>
+    <tag>archive</tag>
+  </tags>
+  <configuration_panel_json>
+    [{
+      "fieldset": [
+        {
+          "type": "number",
+          "name": "rollbackversion",
+          "label": "Roll back to",
+          "value": 0
+        }
+      ]
+    }]
+  </configuration_panel_json>
+  <operations>
+
+    <operation
+        id="asset-delete"
+        description="Roll back to version 1">
+      <configurations>
+        <configuration key="roll-back-to">rollbackversion</configuration>
+      </configurations>
+    </operation>
+
+    <operation
+        id="cleanup"
+        fail-on-error="false"
+        description="Cleaning up">
+      <configurations>
+        <configuration key="preserve-flavors">security/*</configuration>
+        <configuration key="delete-external">true</configuration>
+      </configurations>
+    </operation>
+
+  </operations>
+</definition>
