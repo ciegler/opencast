@@ -20,7 +20,6 @@
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
-
   <!-- =========================================================== -->
   <!-- Set connectors -->
   <!-- =========================================================== -->
@@ -98,6 +97,19 @@
             </Item>
           </Array>
         </Set>
+      </New>
+    </Arg>
+  </Call>
+
+  <!-- =========================================================== -->
+  <!-- Configure Cache Eviction -->
+  <!-- by default the jetty session cache is never evicted (default value: -1) -->
+  <!-- setting the evictionPolicy to 0 results in cache eviction after session exit -->
+  <!-- =========================================================== -->
+  <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.server.session.AbstractSessionCacheFactory">
+        <Set name="evictionPolicy">0</Set>
       </New>
     </Arg>
   </Call>
